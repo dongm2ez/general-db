@@ -44,7 +44,7 @@ $ php artisan vendor:publish --provider='Dongm2ez\Db\DbServiceProvider' --tag="c
 
 namespace App\Repositories;
 
-class ExampleRepository extends \Db\AbstractRepository
+class ExampleRepository extends \Dongm2ez\Db\AbstractRepository
 {
     protected function init() 
     {
@@ -58,7 +58,7 @@ class ExampleRepository extends \Db\AbstractRepository
 
 namespace App\Services;
 
-class ExampleService extends \Db\AbstractService
+class ExampleService extends \Dongm2ez\Db\AbstractService
 {
     public function getAllList($params)
     {

@@ -1,0 +1,25 @@
+{
+    "name": "dongyuxiang/general-db",
+    "description": "database CRUD",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/database": "~5.5"
+    },
+    "require-dev": {
+        "laravel/framework": "~5.5",
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Db\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dongm2ez",
+            "email": "dongm2ez@163.com"
+        }
+    ]
+}

@@ -6,7 +6,7 @@
  * Time: 17:03
  */
 
-namespace Dongm2ez\db;
+namespace Dongm2ez\Db;
 
 
 use Illuminate\Support\ServiceProvider;

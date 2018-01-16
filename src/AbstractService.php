@@ -6,11 +6,11 @@
  * Time: 16:48
  */
 
-namespace Dongm2ez\db;
+namespace Dongm2ez\Db;
 
 
-use Dongm2ez\db\Traits\ListsGuardsTrait;
-use Dongm2ez\db\Traits\ListsParamsTrait;
+use Dongm2ez\Db\Traits\ListsGuardsTrait;
+use Dongm2ez\Db\Traits\ListsParamsTrait;
 
 abstract class AbstractService
 {

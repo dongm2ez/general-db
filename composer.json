@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Db\\": "src/"
+            "Dongm2ez\\Db\\": "src/"
         }
     },
     "license": "MIT",

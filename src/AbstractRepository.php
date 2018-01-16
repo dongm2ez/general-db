@@ -6,12 +6,12 @@
  * Time: 16:40
  */
 
-namespace Db;
+namespace Dongm2ez\Db;
 
 
-use Db\Constant\Query;
-use Db\Traits\ConditionParser;
-use Db\Traits\PaginationParser;
+use Dongm2ez\Db\Constant\Query;
+use Dongm2ez\Db\Traits\ConditionParser;
+use Dongm2ez\Db\Traits\PaginationParser;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository

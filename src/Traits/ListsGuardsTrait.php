@@ -6,10 +6,10 @@
  * Time: 16:44
  */
 
-namespace db\Traits;
+namespace Dongm2ez\Db\Traits;
 
 
-use Db\Constant\Query;
+use Dongm2ez\Db\Constant\Query;
 
 trait ListsGuardsTrait
 {

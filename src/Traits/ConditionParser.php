@@ -6,7 +6,7 @@
  * Time: 16:44
  */
 
-namespace Db\Traits;
+namespace Dongm2ez\Db\Traits;
 
 
 use Illuminate\Database\Eloquent\Model;

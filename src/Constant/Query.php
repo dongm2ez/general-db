@@ -6,7 +6,7 @@
  * Time: 18:05
  */
 
-namespace Db\Constant;
+namespace Dongm2ez\Db\Constant;
 
 
 class Query

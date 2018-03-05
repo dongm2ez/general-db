@@ -26,7 +26,7 @@ class Query
     const QUERY_PARAM_ORDER = '_order';
     const QUERY_PARAM_GROUP = '_group';
     const QUERY_PARAM_FIELDS = '_fields';
-    const QUERY_PARAM_TYPE = '_type'; // 扩展预留字段, 用于区别查询结果集类型
+    const QUERY_PARAM_TYPE = '_type'; // 扩展字段, 用于区别查询结果集类型
     const QUERY_PARAM_VERSION = '_version'; // 用于接口的版本控制
 
 
@@ -43,6 +43,7 @@ class Query
 
     const QUERY_TYPE_PAGE = 'page';
     const QUERY_TYPE_OFFSET = 'offset';
+    const QUERY_TYPE_ALL = 'all';
 
     const QUERY_SYMBOL_GREATER = '{>}';
     const QUERY_SYMBOL_GREATER_EQUAL = '{ge}';

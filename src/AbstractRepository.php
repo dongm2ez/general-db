@@ -53,6 +53,9 @@ abstract class AbstractRepository
         }
 
         switch ($extends['type']) {
+            case Query::QUERY_TYPE_ALL:
+                $result = $builder->all($extends['fields'])->toArray();
+                break;
             case Query::QUERY_TYPE_OFFSET:
                 $result = $builder->offset($extends['page'])->limit($extends['limit'])->get($extends['fields'])->toArray();
                 break;

@@ -53,11 +53,18 @@ abstract class AbstractRepository
         }
 
         switch ($extends['type']) {
+            case Query::QUERY_TYPE_RAW_ALL:
+                $result = $builder->selectRaw(implode(',', $extends['fields']))->get()->toArray();
+                break;
             case Query::QUERY_TYPE_ALL:
                 $result = $builder->all($extends['fields'])->toArray();
                 break;
             case Query::QUERY_TYPE_OFFSET:
                 $result = $builder->offset($extends['page'])->limit($extends['limit'])->get($extends['fields'])->toArray();
+                break;
+            case Query::QUERY_TYPE_RAW_PAGE:
+                $result = $builder->selectRaw(implode(',', $extends['fields']))->paginate($extends['limit'], $extends['fields'], self::PAGE_NAME, $extends['page']);
+                $result = $this->formatPagination($result);
                 break;
             default:
             case Query::QUERY_TYPE_PAGE:

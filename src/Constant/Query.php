@@ -42,8 +42,10 @@ class Query
     ];
 
     const QUERY_TYPE_PAGE = 'page';
+    const QUERY_TYPE_RAW_PAGE = 'raw_page';
     const QUERY_TYPE_OFFSET = 'offset';
     const QUERY_TYPE_ALL = 'all';
+    const QUERY_TYPE_RAW_ALL = 'raw_all';
 
     const QUERY_SYMBOL_GREATER = '{>}';
     const QUERY_SYMBOL_GREATER_EQUAL = '{ge}';

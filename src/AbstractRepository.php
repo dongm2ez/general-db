@@ -31,6 +31,10 @@ abstract class AbstractRepository
         $this->init();
     }
 
+    /**
+     * 实现此方法，将 $model 初始化为当前储藏库要使用的模型
+     * @return mixed
+     */
     abstract protected function init();
 
     /**
@@ -73,6 +77,23 @@ abstract class AbstractRepository
         }
 
         return $result;
+    }
+
+    /**
+     * 通用根据主键获取记录
+     * @param int $id
+     * @return array
+     */
+    public function getItemById(int $id)
+    {
+        /** @var Model $builder */
+        $builder = $this->model;
+
+        $builder = $builder->where('id', $id);
+
+        $result = $builder->first();
+
+        return $result->toArray();
     }
 
     /**

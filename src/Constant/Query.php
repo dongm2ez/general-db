@@ -73,4 +73,7 @@ class Query
         self::QUERY_SYMBOL_BETWEEN,
         self::QUERY_SYMBOL_NOT_BETWEEN,
     ];
+
+    const QUERY_BOOL_TRUE = 'bool_t';
+    const QUERY_BOOL_FALSE = 'bool_f';
 }

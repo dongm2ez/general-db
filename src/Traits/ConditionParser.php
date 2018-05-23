@@ -9,6 +9,7 @@
 namespace Dongm2ez\Db\Traits;
 
 
+use Dongm2ez\Db\Constant\Query;
 use Illuminate\Database\Eloquent\Model;
 
 trait ConditionParser
@@ -30,7 +31,9 @@ trait ConditionParser
             }
 
             if (gettype($value) === 'string' && strpos($value, ',') !== false || strpos($value, '**') !== false) {
-                $value = array_filter(explode(',', $value));
+                $value = array_filter(explode(',', $value), function($v){
+                    return $v != '';
+                });
                 $value = str_replace('**', ',', $value);
             }
 
@@ -108,6 +111,9 @@ trait ConditionParser
             } else {
 
                 switch ($type) {
+                    case 'string' && in_array($value, [Query::QUERY_BOOL_TRUE, Query::QUERY_BOOL_FALSE]):
+                        $where['where'][] = [$column, '=', $value == Query::QUERY_BOOL_TRUE ? '1' : '0'];
+                        break;
                     case 'integer':
                     case 'double':
                     case 'string':

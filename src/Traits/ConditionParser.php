@@ -24,6 +24,7 @@ trait ConditionParser
         $where = [];
 
         array_forget($condition, '_extends');
+        array_forget($condition, '__model');
 
         foreach ($condition as $key => $value) {
             if (gettype($value) === 'string' && strpos($key, '{') !== false && strpos($key, '}') !== false) {
@@ -130,6 +131,47 @@ trait ConditionParser
 
     }
 
+    /**
+     * 扩展查询条件
+     * @param array $condition
+     * @return array
+     */
+    public function extendsPrepare(array $condition = []): array
+    {
+        $extends = array_get($condition, '_extends', []);
+
+        $page = $extends['page'] ?? 1;
+        $limit = $extends['limit'] ?? Query::PAGE_DEFAULT_SIZE;
+        $fields = $extends['fields'] ?? ['*'];
+        $fields = is_array($fields) ? $fields : explode(',', $fields);
+
+        return [
+            'page' => $page,
+            'limit' => $limit,
+            'offset' => ($page - 1) * $limit,
+            'size' => $limit + ($page - 1) * $limit,
+            'sort' => $extends['sort'] ?? 'id',
+            'order' => $extends['order'] ?? 'DESC',
+            'group' => $extends['group'] ?? '',
+            'fields' => $fields ?? ['*'],
+            'type' => $extends['type'] ?? '',
+            'version' => $extends['version'] ?? 'v1',
+        ];
+    }
+
+    /**
+     * 扩展查询条件
+     * @param array $condition
+     * @return array
+     */
+    public function modelPrepare(array $condition = []): array
+    {
+        $model = array_get($condition, '__model', []);
+
+        return [
+            'with' => $model['with'] ?? ''
+        ];
+    }
 
     /**
      * 查询器处理

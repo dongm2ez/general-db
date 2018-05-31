@@ -44,11 +44,12 @@ abstract class AbstractRepository
      */
     public function getList(array $condition)
     {
+        $model = $this->modelPrepare($condition);
         $extends = $this->extendsPrepare($condition);
         $condition = $this->conditionParse($condition);
 
         /** @var Model $builder */
-        $builder = $this->model;
+        $builder = $this->model->with($model['with']);
         $builder = $this->builderPrepare($condition, $builder);
         $builder->orderBy($extends['sort'], $extends['order']);
 
@@ -103,10 +104,11 @@ abstract class AbstractRepository
      */
     public function getItem(array $condition)
     {
+        $model = $this->modelPrepare($condition);
         $extends = $this->extendsPrepare($condition);
         $condition = $this->conditionParse($condition);
         /** @var Model $builder */
-        $builder = $this->model;
+        $builder = $this->model->with($model['with']);
         $builder = $this->builderPrepare($condition, $builder);
         $builder->orderBy($extends['sort'], $extends['order']);
 

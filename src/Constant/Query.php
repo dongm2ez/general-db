@@ -29,6 +29,8 @@ class Query
     const QUERY_PARAM_TYPE = '_type'; // 扩展字段, 用于区别查询结果集类型
     const QUERY_PARAM_VERSION = '_version'; // 用于接口的版本控制
 
+    const QUERY_MODEL_WITH = '__with';
+
 
     const QUERY_PARAM_ALL = [
         self::QUERY_PARAM_PAGE,

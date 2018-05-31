@@ -35,6 +35,8 @@ trait ListsParamsTrait
         $type = array_get($params, Query::QUERY_PARAM_TYPE, Query::QUERY_TYPE_PAGE);
         $version = array_get($params, Query::QUERY_PARAM_VERSION, '');
 
+        $with = array_get($params, Query::QUERY_MODEL_WITH, '');
+
         $fields = array_get($params, Query::QUERY_PARAM_FIELDS);
         $fields = $fields ? (is_array($fields) ? $fields : explode(',', $fields)) : ['*'];
 
@@ -51,6 +53,10 @@ trait ListsParamsTrait
             'version' => $version
         ];
 
-        return $extends;
+        $model = [
+            'with' => $with
+        ];
+
+        return ['_extends' => $extends, '__model' => $model];
     }
 }

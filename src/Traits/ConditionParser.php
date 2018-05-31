@@ -26,7 +26,7 @@ trait ConditionParser
         array_forget($condition, '_extends');
 
         foreach ($condition as $key => $value) {
-            if (strpos($key, '{') !== false && strpos($key, '}') !== false) {
+            if (gettype($value) === 'string' && strpos($key, '{') !== false && strpos($key, '}') !== false) {
                 $key = str_replace(['{', '}', '>>', '<<'], ['[', ']', '>=', '<='], $key);
             }
 
@@ -69,7 +69,7 @@ trait ConditionParser
                     }
                 } elseif ($operator === '@' || $operator === '!@') {
                     // 对只传一个值调用方不加,做兼容
-                    if (strpos($value, ',') === false) {
+                    if ($type === 'string' && strpos($value, ',') === false) {
                         $type = 'array';
                         $value = [$value];
                     }

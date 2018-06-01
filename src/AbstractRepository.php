@@ -49,7 +49,10 @@ abstract class AbstractRepository
         $condition = $this->conditionParse($condition);
 
         /** @var Model $builder */
-        $builder = $this->model->with($model['with']);
+        $builder = $this->model;
+        if ($model['with']){
+            $builder = $builder->with($model['with']);
+        }
         $builder = $this->builderPrepare($condition, $builder);
         $builder->orderBy($extends['sort'], $extends['order']);
 
@@ -108,7 +111,10 @@ abstract class AbstractRepository
         $extends = $this->extendsPrepare($condition);
         $condition = $this->conditionParse($condition);
         /** @var Model $builder */
-        $builder = $this->model->with($model['with']);
+        $builder = $this->model;
+        if ($model['with']){
+            $builder = $builder->with($model['with']);
+        }
         $builder = $this->builderPrepare($condition, $builder);
         $builder->orderBy($extends['sort'], $extends['order']);
 

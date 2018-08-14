@@ -93,8 +93,6 @@ class ExampleController extends Controller
 }
 ```
 
-#列表查询传值
-
 ## 传值格式
 
 `字段{条件}=值`
@@ -127,13 +125,13 @@ class ExampleController extends Controller
 
 `{!#}` is not null 查询, `?delete_at{!#}=null`,表示`delete_at is not null)`
 
-###二元查询
+### 二元查询
 
 `{<>}` between 查询, `?create_date{<>}=2017-10-01,2017-10-02`,表示`create_date between(2017-10-01,2017-10-02)`
 
 `{><}` not between 查询, `?create_date{><}=2017-10-01,2017-10-02`,表示`create_date not between(2017-10-01,2017-10-02)`
 
-###多元查询
+### 多元查询
 
 订单合单类型在做 `{@}`、`{!@}` 查询时使用 `**` 表示中间连接符，如 `goods,event**goods` 表示查询商品与活动和商品合单
 
@@ -141,7 +139,7 @@ class ExampleController extends Controller
 
 `{!@}` not in 查询, `?id{!@}=1,2,3,4`,表示`id IN(1,2,3,4)`
 
-###扩展条件
+### 扩展条件
 
 `_page` 页码，默认1
 

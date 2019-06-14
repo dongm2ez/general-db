@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dongyuxiang
- * Date: 16/01/2018
- * Time: 16:44
- */
 
 namespace Dongm2ez\Db\Traits;
-
 
 use Dongm2ez\Db\Constant\Query;
 
@@ -15,7 +8,6 @@ trait ListsParamsTrait
 {
     /**
      * 分页参数格式化
-     * @author Dong Yuxiang<dongyuxiang@eventmosh.com>
      * @param $params
      * @return array
      */
@@ -25,7 +17,6 @@ trait ListsParamsTrait
         $size = (int)isset($params['page_size']) ? $params['page_size'] : 0;
         $page = ($page > 0) ? $page : 1;
         $size = ($size > 0 && $size <= Query::PAGE_MAX_SIZE) ? $size : Query::PAGE_DEFAULT_SIZE;
-
 
         $page = (int)array_get($params, Query::QUERY_PARAM_PAGE, $page);
         $limit = (int)array_get($params, Query::QUERY_PARAM_LIMIT, $size);

@@ -1,15 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dongyuxiang
- * Date: 15/01/2018
- * Time: 16:44
- */
 
 namespace Dongm2ez\Db\Traits;
 
-
-use Dongm2ez\Db\Constant\Query;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 trait PaginationParser
@@ -32,12 +24,13 @@ trait PaginationParser
             'current_page' => $extends['page'], // 当前页数
             'count_per_page' => $extends['limit'] // 一页显示条数
         ];
+
         return $page;
     }
 
     /**
      * 分页格式化
-     * @param LengthAwarePaginator|null $data
+     * @param null|LengthAwarePaginator $data
      * @return array
      */
     protected function formatPagination(LengthAwarePaginator $data = null): array
@@ -58,6 +51,7 @@ trait PaginationParser
             unset($data['first_page_url']);
             $result['pagination'] = $data;
         }
+
         return $result;
     }
 }

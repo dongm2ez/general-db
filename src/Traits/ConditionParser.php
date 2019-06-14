@@ -1,19 +1,54 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dongyuxiang
- * Date: 15/01/2018
- * Time: 16:44
- */
 
 namespace Dongm2ez\Db\Traits;
-
 
 use Dongm2ez\Db\Constant\Query;
 use Illuminate\Database\Eloquent\Model;
 
 trait ConditionParser
 {
+    /**
+     * 扩展查询条件
+     * @param array $condition
+     * @return array
+     */
+    public function extendsPrepare(array $condition = []): array
+    {
+        $extends = array_get($condition, '_extends', []);
+
+        $page = $extends['page'] ?? 1;
+        $limit = $extends['limit'] ?? Query::PAGE_DEFAULT_SIZE;
+        $fields = $extends['fields'] ?? ['*'];
+        $fields = is_array($fields) ? $fields : explode(',', $fields);
+
+        return [
+            'page' => $page,
+            'limit' => $limit,
+            'offset' => ($page - 1) * $limit,
+            'size' => $limit + ($page - 1) * $limit,
+            'sort' => $extends['sort'] ?? 'id',
+            'order' => $extends['order'] ?? 'DESC',
+            'group' => $extends['group'] ?? '',
+            'fields' => $fields ?? ['*'],
+            'type' => $extends['type'] ?? '',
+            'version' => $extends['version'] ?? 'v1',
+        ];
+    }
+
+    /**
+     * 扩展查询条件
+     * @param array $condition
+     * @return array
+     */
+    public function modelPrepare(array $condition = []): array
+    {
+        $model = array_get($condition, '__model', []);
+
+        return [
+            'with' => $model['with'] ?? ''
+        ];
+    }
+
     /**
      * 条件解析
      * @param array $condition
@@ -32,7 +67,7 @@ trait ConditionParser
             }
 
             if (gettype($value) === 'string' && strpos($value, ',') !== false || strpos($value, '**') !== false) {
-                $value = array_filter(explode(',', $value), function($v){
+                $value = array_filter(explode(',', $value), function ($v) {
                     return $v != '';
                 });
                 $value = str_replace('**', ',', $value);
@@ -40,9 +75,11 @@ trait ConditionParser
 
             $type = gettype($value);
 
-            preg_match('/(#?)([a-zA-Z0-9_\.]+)(\[(?<operator>\>|\>\=|ge|\<|\<\=|le|\!|\<\>|\>\<|\!?~|\!?@|\!?#)\])?/i',
+            preg_match(
+                '/(#?)([a-zA-Z0-9_\.]+)(\[(?<operator>\>|\>\=|ge|\<|\<\=|le|\!|\<\>|\>\<|\!?~|\!?@|\!?#)\])?/i',
                 $key,
-                $match);
+                $match
+            );
 
             $column = $match[2];
 
@@ -104,13 +141,10 @@ trait ConditionParser
                     $operator = ($operator === '!~' ? 'not ' : '') . 'like';
 
                     $where['where'][] = [$column, $operator, $value];
-
                 } else {
                     $where['where'][] = [$column, $operator, $value];
                 }
-
             } else {
-
                 switch ($type) {
                     case 'string' && in_array($value, [Query::QUERY_BOOL_TRUE, Query::QUERY_BOOL_FALSE]):
                         $where['where'][] = [$column, '=', $value == Query::QUERY_BOOL_TRUE ? '1' : '0'];
@@ -123,63 +157,19 @@ trait ConditionParser
                     case 'boolean':
                         $where['where'][] = [$column, '=', $value ? '1' : '0'];
                 }
-
             }
         }
 
         return $where;
-
-    }
-
-    /**
-     * 扩展查询条件
-     * @param array $condition
-     * @return array
-     */
-    public function extendsPrepare(array $condition = []): array
-    {
-        $extends = array_get($condition, '_extends', []);
-
-        $page = $extends['page'] ?? 1;
-        $limit = $extends['limit'] ?? Query::PAGE_DEFAULT_SIZE;
-        $fields = $extends['fields'] ?? ['*'];
-        $fields = is_array($fields) ? $fields : explode(',', $fields);
-
-        return [
-            'page' => $page,
-            'limit' => $limit,
-            'offset' => ($page - 1) * $limit,
-            'size' => $limit + ($page - 1) * $limit,
-            'sort' => $extends['sort'] ?? 'id',
-            'order' => $extends['order'] ?? 'DESC',
-            'group' => $extends['group'] ?? '',
-            'fields' => $fields ?? ['*'],
-            'type' => $extends['type'] ?? '',
-            'version' => $extends['version'] ?? 'v1',
-        ];
-    }
-
-    /**
-     * 扩展查询条件
-     * @param array $condition
-     * @return array
-     */
-    public function modelPrepare(array $condition = []): array
-    {
-        $model = array_get($condition, '__model', []);
-
-        return [
-            'with' => $model['with'] ?? ''
-        ];
     }
 
     /**
      * 查询器处理
-     * @param array $condition
      * @param $builder
+     * @param array $condition
      * @return Model
      */
-    protected function builderPrepare(array $condition = [], &$builder)
+    protected function builderPrepare(Model &$builder, array $condition = [])
     {
         foreach ($condition as $key => $value) {
             switch ($key) {

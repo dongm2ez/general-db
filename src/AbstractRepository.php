@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dongyuxiang
- * Date: 15/01/2018
- * Time: 16:40
- */
 
 namespace Dongm2ez\Db;
-
 
 use Dongm2ez\Db\Constant\Query;
 use Dongm2ez\Db\Traits\ConditionParser;
@@ -32,12 +25,6 @@ abstract class AbstractRepository
     }
 
     /**
-     * 实现此方法，将 $model 初始化为当前储藏库要使用的模型
-     * @return mixed
-     */
-    abstract protected function init();
-
-    /**
      * 获取通用列表
      * @param array $condition
      * @return array
@@ -50,10 +37,10 @@ abstract class AbstractRepository
 
         /** @var Model $builder */
         $builder = $this->model;
-        if ($model['with']){
+        if ($model['with']) {
             $builder = $builder->with($model['with']);
         }
-        $builder = $this->builderPrepare($condition, $builder);
+        $builder = $this->builderPrepare($builder, $condition);
         $builder->orderBy($extends['sort'], $extends['order']);
 
         if (!empty($extends['group'])) {
@@ -112,7 +99,7 @@ abstract class AbstractRepository
         $condition = $this->conditionParse($condition);
         /** @var Model $builder */
         $builder = $this->model;
-        if ($model['with']){
+        if ($model['with']) {
             $builder = $builder->with($model['with']);
         }
         $builder = $this->builderPrepare($condition, $builder);
@@ -147,8 +134,8 @@ abstract class AbstractRepository
     /**
      * 通用删除
      * @param array $condition
-     * @return bool|null
      * @throws \Exception
+     * @return null|bool
      */
     public function delete(array $condition)
     {
@@ -160,4 +147,10 @@ abstract class AbstractRepository
 
         return $builder->delete();
     }
+
+    /**
+     * 实现此方法，将 $model 初始化为当前储藏库要使用的模型
+     * @return mixed
+     */
+    abstract protected function init();
 }

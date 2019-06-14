@@ -33,20 +33,22 @@ After installing the library, register the `Dongm2ez\Db\DbServiceProvider` in yo
 As optional if you want to modify the default configuration, you can publish the configuration file:
 
 ```shell
+
 $ php artisan vendor:publish --provider='Dongm2ez\Db\DbServiceProvider' --tag="config"
+
 ```
 
 # Usage
 
 ```php
 
-<?php 
+<?php
 
 namespace App\Repositories;
 
 class ExampleRepository extends \Dongm2ez\Db\AbstractRepository
 {
-    protected function init() 
+    protected function init()
     {
         $this->model = new ExampleModel();
     }
@@ -54,7 +56,7 @@ class ExampleRepository extends \Dongm2ez\Db\AbstractRepository
 ```
 
 ```php
-<?php 
+<?php
 
 namespace App\Services;
 
@@ -84,7 +86,7 @@ class ExampleService extends \Dongm2ez\Db\AbstractService
 namespace App\Http\Controller;
 
 
-class ExampleController extends Controller 
+class ExampleController extends Controller
 {
     public function lists(Request $request)
     {
@@ -105,7 +107,7 @@ class ExampleController extends Controller
 
 ## 支持查询条件
 
-###一元查询
+### 一元查询
 
 `{>}` 大于，`?pay_money{>}=100`
 
@@ -121,7 +123,7 @@ class ExampleController extends Controller
 
 `{!~}` not like 查询, `?pay_money{!~}=100`
 
-`{#}` is null 查询, `?delete_at{#}=nulll`,表示`delete_at is null`
+`{#}` is null 查询, `?delete_at{#}=null`,表示`delete_at is null`
 
 `{!#}` is not null 查询, `?delete_at{!#}=null`,表示`delete_at is not null)`
 
